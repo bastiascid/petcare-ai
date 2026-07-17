@@ -1,9 +1,12 @@
 import React from 'react';
 import { Routes, Route, useNavigate, NavLink } from 'react-router-dom';
-import { Shield, LogOut, Users, Activity, Settings, Database } from 'lucide-react';
+import { Shield, LogOut, Users, Activity, Settings, Database, Building2 } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 import { AdminDashboard } from './AdminDashboard';
 import { AdminUsers } from './AdminUsers';
+import { AdminCRM } from './AdminCRM';
+import { AdminSettings } from './AdminSettings';
+import { AdminDatabase } from './AdminDatabase';
 
 export function AdminLayout() {
   const { signOut } = useAuthStore();
@@ -37,15 +40,18 @@ export function AdminLayout() {
           <NavLink to="/admin" end className={navClass}>
             <Activity size={20} className="text-purple-400" /> Métricas
           </NavLink>
+          <NavLink to="/admin/crm" className={navClass}>
+            <Building2 size={20} className="text-emerald-400" /> Ventas y Convenios
+          </NavLink>
           <NavLink to="/admin/users" className={navClass}>
             <Users size={20} className="text-sky-400" /> Usuarios
           </NavLink>
-          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 cursor-not-allowed opacity-50 border border-transparent">
-            <Database size={20} /> Base de Datos (Próximamente)
-          </button>
-          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 cursor-not-allowed opacity-50 border border-transparent">
-            <Settings size={20} /> Configuración (Próximamente)
-          </button>
+          <NavLink to="/admin/database" className={navClass}>
+            <Database size={20} className="text-amber-400" /> Base de Datos
+          </NavLink>
+          <NavLink to="/admin/settings" className={navClass}>
+            <Settings size={20} className="text-slate-400" /> Configuración
+          </NavLink>
         </nav>
 
         <div className="p-4 border-t border-slate-800">
@@ -59,7 +65,10 @@ export function AdminLayout() {
       <main className="flex-1 overflow-auto bg-slate-900 p-8">
         <Routes>
           <Route path="/" element={<AdminDashboard />} />
+          <Route path="/crm" element={<AdminCRM />} />
           <Route path="/users" element={<AdminUsers />} />
+          <Route path="/database" element={<AdminDatabase />} />
+          <Route path="/settings" element={<AdminSettings />} />
           <Route path="*" element={<AdminDashboard />} />
         </Routes>
       </main>
