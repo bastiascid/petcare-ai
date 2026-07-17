@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PawPrint, Loader2 } from 'lucide-react';
+import { PawPrint, Loader2, ArrowLeft } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 
 export function Login() {
@@ -15,7 +15,11 @@ export function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 relative">
+      <Link to="/" className="absolute top-8 left-8 flex items-center gap-2 text-slate-500 hover:text-slate-700 transition-colors font-medium">
+        <ArrowLeft size={20} /> Volver al Inicio
+      </Link>
+      
       <div className="glass-card w-full max-w-md">
         <div className="flex flex-col items-center mb-8">
           <div className="bg-sky-500 p-3 rounded-full text-white mb-4">

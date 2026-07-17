@@ -157,6 +157,9 @@ export function LandingPage() {
         </h2>
         <p className="text-slate-500 text-sm">© 2026 Petcare AI Platform. Todos los derechos reservados.</p>
         <p className="text-slate-400 text-xs mt-2">Construido con React, Tailwind, Supabase y Vite.</p>
+        <p className="text-slate-500 text-sm mt-4 font-medium">
+          Desarrollado por <a href="https://bastiascid.cl" target="_blank" rel="noopener noreferrer" className="text-sky-500 hover:underline">Cristian Bastias Cid</a>
+        </p>
       </footer>
     </div>
   );
