@@ -1,17 +1,25 @@
 import React from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, NavLink } from 'react-router-dom';
 import { Shield, LogOut, Users, Activity, Settings, Database } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 import { AdminDashboard } from './AdminDashboard';
+import { AdminUsers } from './AdminUsers';
 
 export function AdminLayout() {
-  const { user, signOut } = useAuthStore();
+  const { signOut } = useAuthStore();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     await signOut();
     navigate('/login');
   };
+
+  const navClass = ({ isActive }: { isActive: boolean }) => 
+    `w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors ${
+      isActive 
+        ? 'bg-slate-900 text-white border border-slate-700' 
+        : 'text-slate-400 hover:bg-slate-900 hover:text-white border border-transparent'
+    }`;
 
   return (
     <div className="min-h-screen bg-slate-900 text-slate-300 flex">
@@ -26,17 +34,17 @@ export function AdminLayout() {
         </div>
         
         <nav className="flex-1 p-4 space-y-2">
-          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-slate-900 text-white font-medium border border-slate-700">
+          <NavLink to="/admin" end className={navClass}>
             <Activity size={20} className="text-purple-400" /> Métricas
+          </NavLink>
+          <NavLink to="/admin/users" className={navClass}>
+            <Users size={20} className="text-sky-400" /> Usuarios
+          </NavLink>
+          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 cursor-not-allowed opacity-50 border border-transparent">
+            <Database size={20} /> Base de Datos (Próximamente)
           </button>
-          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition-colors">
-            <Users size={20} /> Usuarios
-          </button>
-          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition-colors">
-            <Database size={20} /> Base de Datos
-          </button>
-          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition-colors">
-            <Settings size={20} /> Configuración
+          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 cursor-not-allowed opacity-50 border border-transparent">
+            <Settings size={20} /> Configuración (Próximamente)
           </button>
         </nav>
 
@@ -51,6 +59,7 @@ export function AdminLayout() {
       <main className="flex-1 overflow-auto bg-slate-900 p-8">
         <Routes>
           <Route path="/" element={<AdminDashboard />} />
+          <Route path="/users" element={<AdminUsers />} />
           <Route path="*" element={<AdminDashboard />} />
         </Routes>
       </main>
