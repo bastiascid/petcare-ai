@@ -125,12 +125,18 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
     // Insertar manualmente el perfil en nuestra tabla pública
     if (data.user) {
-      await supabase.from('users').insert({
+      const { error: insertError } = await supabase.from('users').insert({
         auth_id: data.user.id,
         email: data.user.email,
+        name: fullName,
         full_name: fullName,
         role: role
       });
+      
+      if (insertError) {
+        console.error("Error inserting into public.users:", insertError);
+        // Fallback for UI if insert fails
+      }
     }
 
     set({ loading: false });
